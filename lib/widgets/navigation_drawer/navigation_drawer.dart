@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webcv/rotuing/route_names.dart';
 import 'package:webcv/widgets/navigation_drawer/navigation_drawer_header.dart';
 import 'package:webcv/widgets/navigation_drawer/drawer_item.dart';
 
@@ -16,10 +17,26 @@ class NavigationDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           NavigationDrawerHeader(),
-          DrawerItem(title: 'Home', icon: Icons.home),
-          DrawerItem(title: 'About', icon: Icons.person),
-          DrawerItem(title: 'Portfolio', icon: Icons.work),
-          DrawerItem(title: 'Contact', icon: Icons.contact_mail),
+          DrawerItem(
+            icon: Icons.home,
+            navigationPath: HomeRoute,
+            title: 'Home',
+          ),
+          DrawerItem(
+            icon: Icons.person,
+            navigationPath: AboutRoute,
+            title: 'About',
+          ),
+          DrawerItem(
+            icon: Icons.work,
+            navigationPath: PortfolioRoute,
+            title: 'Portfolio',
+          ),
+          DrawerItem(
+            icon: Icons.contact_mail,
+            navigationPath: ContactRoute,
+            title: 'Contact',
+          ),
         ],
       ),
     );

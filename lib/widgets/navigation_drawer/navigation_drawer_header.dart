@@ -12,14 +12,14 @@ class NavigationDrawerHeader extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          // Text(
-          //   'WebCV',
-          //   style: TextStyle(
-          //     fontSize: 18,
-          //     fontWeight: FontWeight.w800,
-          //     color: Colors.white,
-          //   ),
-          // ),
+          Text(
+            'My Portfolio',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );

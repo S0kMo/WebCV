@@ -12,7 +12,7 @@ class HomeContentDesktop extends StatelessWidget {
                 HomeInfo(),
                 Expanded(
                   child: Center(
-                    child: CallToAction('Send A Message', topPadding: 0),
+                  child: CallToAction('Send A Message', topPadding: 0),
                   ),
                 )
               ],

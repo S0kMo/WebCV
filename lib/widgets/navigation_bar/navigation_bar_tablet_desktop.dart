@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webcv/rotuing/route_names.dart';
 import 'navbar_logo.dart';
 import 'navbar_item.dart';
 
@@ -16,13 +17,13 @@ class NavigationBarTabletDesktop extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              NavBarItem('HOME'),
+              NavBarItem('HOME', HomeRoute),
               SizedBox(width: 60),
-              NavBarItem('ABOUT'),
+              NavBarItem('ABOUT', AboutRoute),
               SizedBox(width: 60),
-              NavBarItem('PROJECTS'),
+              NavBarItem('PROJECTS', PortfolioRoute),
               SizedBox(width: 60),
-              NavBarItem('CONTACTS'),
+              NavBarItem('CONTACTS', ContactRoute),
               SizedBox(width: 60),
             ],
           ),
