@@ -12,7 +12,7 @@ class HomeContentMobile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
         HomeInfo(),
-        SizedBox(height: 60),
+        SizedBox(height: 160),
         CallToAction('Send A Message', topPadding: 0),
         ],
       );

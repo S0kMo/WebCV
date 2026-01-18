@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Palette chosen to match the Portfolite feel: soft off-white background,
-  // deep slate text, and a fresh green accent for CTAs.
+  // white text with shadow, and a fresh green accent for CTAs.
   static const Color scaffoldBg = Color(0xFFF8FAFC); // very light
   static const Color surface = Color(0xFFFFFFFF);
   static const Color primary = Color(0xFF22C55E); // lively green accent
   static const Color onPrimary = Colors.white;
-  static const Color textPrimary = Color(0xFF0F172A); // slate-900
+  static const Color textPrimary = Colors.white; // white text
   static const Color textMuted = Color(0xFF64748B); // slate-500 / muted
   static const Color border = Color(0xFFE6EEF5);
+
+  // Text shadow for primary text
+  static const List<Shadow> textShadow = [
+    Shadow(
+      color: Color.fromRGBO(255, 255, 255, 0.28),
+      blurRadius: 6,
+      offset: Offset(0, 0),
+    ),
+  ];
 
   static ThemeData theme() {
     // Base text theme using the registered font family "Nerd Fonts"
@@ -22,30 +31,35 @@ class AppTheme {
         fontSize: 48,
         height: 1.05,
         color: textPrimary,
+        shadows: textShadow,
       ),
       displayMedium: TextStyle(
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w800,
         fontSize: 40,
         color: textPrimary,
+        shadows: textShadow,
       ),
       headlineLarge: TextStyle(
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w800,
         fontSize: 28,
         color: textPrimary,
+        shadows: textShadow,
       ),
       titleLarge: TextStyle(
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w800,
         fontSize: 18,
         color: textPrimary,
+        shadows: textShadow,
       ),
       bodyLarge: TextStyle(
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w400,
         fontSize: 16,
         color: textPrimary,
+        shadows: textShadow,
       ),
       bodyMedium: TextStyle(
         fontFamily: 'Nerd Fonts',
@@ -58,6 +72,7 @@ class AppTheme {
         fontWeight: FontWeight.w800,
         fontSize: 14,
         color: textPrimary,
+        shadows: textShadow,
       ),
     );
 

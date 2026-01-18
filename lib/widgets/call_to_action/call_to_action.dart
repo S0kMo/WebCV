@@ -9,6 +9,7 @@ class CallToAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return ScreenTypeLayout(
       mobile: CallToActionMobile(title: title),
       desktop: CallToActionTabletDesktop(title: title),

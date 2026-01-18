@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class CallToActionTabletDesktop extends StatelessWidget {

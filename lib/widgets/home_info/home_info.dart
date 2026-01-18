@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -34,7 +35,9 @@ class HomeInfo extends StatelessWidget {
                 height: 0.9,
                 fontWeight: FontWeight.w800,
               ),textAlign: textAlignment,
+              
             ),
+            
             SizedBox(height: 20),
             Text(
               'This is a brief introduction about myself. I am passionate about Flutter development and love creating beautiful and functional applications.',
