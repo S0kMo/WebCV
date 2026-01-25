@@ -5,7 +5,7 @@ class AppTheme {
   // white text with shadow, and a fresh green accent for CTAs.
   static const Color scaffoldBg = Color(0xFFF8FAFC); // very light
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color primary = Color(0xFF22C55E); // lively green accent
+  static const Color primary = Color(0xFFFAFAFA); // lively green accent
   static const Color onPrimary = Colors.white;
   static const Color textPrimary = Colors.white; // white text
   static const Color textMuted = Color(0xFF64748B); // slate-500 / muted
@@ -50,7 +50,16 @@ class AppTheme {
       titleLarge: TextStyle(
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w800,
-        fontSize: 18,
+        fontSize: 80,
+        height: 1,
+        color: textPrimary,
+        shadows: textShadow,
+      ),
+      titleSmall: TextStyle(
+        fontFamily: 'Nerd Fonts',
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+        height: 1.7,
         color: textPrimary,
         shadows: textShadow,
       ),
@@ -65,7 +74,7 @@ class AppTheme {
         fontFamily: 'Nerd Fonts',
         fontWeight: FontWeight.w400,
         fontSize: 14,
-        color: textMuted,
+        color: textPrimary,
       ),
       labelLarge: TextStyle(
         fontFamily: 'Nerd Fonts',

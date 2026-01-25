@@ -1,6 +1,10 @@
 // ignore_for_file: avoid_unnecessary_containers, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:webcv/locator.dart';
+import 'package:webcv/rotuing/route_names.dart';
+import 'package:webcv/services/navigation_service.dart';
 
 class CallToActionTabletDesktop extends StatelessWidget {
   final String title;
@@ -33,6 +37,7 @@ class CallToActionTabletDesktop extends StatelessWidget {
           GestureDetector(
             onTap: () {
               //implement action (open contact form / send message)
+              locator<NavigationService>().navigateTo(ContactRoute);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),

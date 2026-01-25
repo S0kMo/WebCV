@@ -1,45 +1,140 @@
 import 'package:flutter/material.dart';
 import 'package:webcv/views/contact/contact_calendar.dart';
 import 'package:webcv/views/contact/contact_name_card.dart';
+import 'package:webcv/views/contact/contact_time_slots.dart';
+import 'package:webcv/views/contact/contact_form.dart';
 
-class ContactView extends StatelessWidget {
+
+class ContactView extends StatefulWidget {
   const ContactView({super.key});
+
+  @override
+  State<ContactView> createState() => _ContactViewState();
+}
+
+class _ContactViewState extends State<ContactView> {
+  bool _showForm = false;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+
+  void _switchToForm() {
+    setState(() {
+      _showForm = true;
+    });
+  }
+
+  void _switchToCalendar() {
+    setState(() {
+      _showForm = false;
+    });
+  }
+
+  void _handleFormSubmit() {
+    // Handle form submission
+    print('Form submitted');
+    print('Name: ${_nameController.text}');
+    print('Email: ${_emailController.text}');
+    print('Message: ${_messageController.text}');
+
+    // Reset form after submission if needed
+    // _nameController.clear();
+    // _emailController.clear();
+    // _messageController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          margin: const EdgeInsets.all(20),
-          padding: const EdgeInsets.all(24),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: const Color(0xFF121212),
+            color: Colors.black.withOpacity(0.5),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white10),
+            border: Border.all(color: Colors.white70, width: 1),
           ),
-          child: Table(
-            columnWidths: const {
-              0: FlexColumnWidth(1),
-              1: FixedColumnWidth(16),
-              2: FlexColumnWidth(2),
-            },
-            defaultVerticalAlignment: TableCellVerticalAlignment.fill,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TableRow(
+              // Header
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
+                child: Text(
+                  'Contact Me',
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                child: Text(
+                  'Let\'s discuss your project',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(color: Colors.grey[400]),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Main content area with two columns
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ContactNameCard(),
-                  const VerticalDivider(
-                    color: Colors.white10,
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
+                  // Left column: Name card only
+                  Expanded(flex: 1, child: const ContactNameCard(),
                   ),
-                  ContactCalendar(
-                    // selectedDate: DateTime.now(),
-                    // onDateChanged: (DateTime newDate) {
-                    //   // Handle date change
-                    // },
+
+                  const SizedBox(width: 16),
+
+                  // Right column: Calendar or Form
+                  Expanded(
+                    flex: 2,
+                    child: _showForm
+                        ? ContactForm(
+                            nameController: _nameController,
+                            emailController: _emailController,
+                            messageController: _messageController,
+                            onSubmit: _handleFormSubmit,
+                            onBack: _switchToCalendar,
+                          )
+                        : Column(
+                            children: [
+                              ContactCalendar(
+                                selectedDate: DateTime.now(),
+                                onDateChanged: (newDate) {},
+                              ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      16,
+                                      0,
+                                      0,
+                                      5,
+                                    ),
+                                    child: Text(
+                                      "Available time slots",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(color: Colors.grey[400]),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                child: ContactTimeSlots(
+                                  selectedTime: '10:00 AM',
+                                  onTimeChanged: (newTime) {},
+                                  onTimeSelected: _switchToForm,
+                                ),
+                              ),
+                            ],
+                          ),
                   ),
                 ],
               ),

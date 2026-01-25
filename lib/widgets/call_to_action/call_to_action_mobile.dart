@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:webcv/locator.dart';
+import 'package:webcv/rotuing/route_names.dart';
+import 'package:webcv/services/navigation_service.dart';
 
 class CallToActionMobile extends StatelessWidget {
   final String title;
@@ -6,7 +9,11 @@ class CallToActionMobile extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-      return Container(
+    return GestureDetector(
+      onTap: () {
+        locator<NavigationService>().navigateTo(ContactRoute);
+      },
+      child: Container(
         height: 60,
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),
@@ -46,6 +53,7 @@ class CallToActionMobile extends StatelessWidget {
             ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}

@@ -8,7 +8,7 @@ import 'contact_time_slots.dart';
 class ContactBookingSection extends StatefulWidget {
   final DateTime selectedDate;
   final String selectedTime;
-  final ValueChanged<DateTime> onDateChanged;
+  final Null Function(DateTime) onDateChanged;
   final ValueChanged<String> onTimeChanged;
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -47,8 +47,8 @@ class _ContactBookingSectionState extends State<ContactBookingSection> {
 
           // Calendar
           ContactCalendar(
-            // selectedDate: widget.selectedDate,
-            // onDateChanged: widget.onDateChanged,
+            selectedDate: widget.selectedDate,
+            onDateChanged: widget.onDateChanged,
           ),
           const SizedBox(height: 32),
 
@@ -61,6 +61,7 @@ class _ContactBookingSectionState extends State<ContactBookingSection> {
           ContactTimeSlots(
             selectedTime: widget.selectedTime,
             onTimeChanged: widget.onTimeChanged,
+            onTimeSelected: () {}, // Dummy callback for ContactBookingSection
           ),
         ],
       ),

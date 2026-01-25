@@ -16,7 +16,8 @@ class LayoutTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return VideoBackground(
       videoPath: 'assets/background2.mp4',
-      opacity: 1.0,
+      opacity: 0.4,
+      blurRadius: 0.2,
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) => Scaffold(
           backgroundColor: Colors.transparent,

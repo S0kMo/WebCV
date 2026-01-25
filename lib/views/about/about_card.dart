@@ -11,7 +11,6 @@ class AboutCard extends StatelessWidget {
       alignment: Alignment.topLeft,
       color: Colors.transparent,
       child: Container(
-        width: 600,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.5),
@@ -23,7 +22,7 @@ class AboutCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: 30,
+              radius: 50,
               backgroundColor: Colors.white,
               backgroundImage: AssetImage('assets/profile_picture.png'),
             ),
@@ -37,38 +36,49 @@ class AboutCard extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Telecomunications & Network Engineering Student',
+              'sum_somony@portfolio:~\$ whoami',
               style: Theme.of(
                 context,
-              ).textTheme.bodyLarge?.copyWith(color: Colors.white),
+              ).textTheme.bodyLarge?.copyWith(color: Colors.yellow),
             ),
             SizedBox(height: 16),
             // Description with highlighted link
             RichText(
+              textAlign: TextAlign.left,
               text: TextSpan(
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
                 children: [
-                  TextSpan(text: "Book me and I will never give you up. "),
                   TextSpan(
-                    text: "github.com",
-                    style: TextStyle(color: Colors.blueAccent),
+                    text:
+                        "Currently a Telecom & Network Engineering student—which is a fancy way of saying I spend 40 hours a week staring at green lights on a switch and wondering why my ping is so high.",
+                  ),
+                  TextSpan(text: "I’m an easy-going guy who lives for"),
+                  TextSpan(
+                    text: " 0% packet loss ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   TextSpan(
                     text:
-                        " will never let you down. Open Source will never run around and desert you.",
+                        "and a perfectly crimped CAT6 cable. When I'm not accidentally crashing my own virtual local network, I'm probably figuring out how to route my way to the nearest coffee shop. Still a student, but I've already mastered the most important engineering skill: ",
+                  ),
+                  TextSpan(
+                    text: "Turning it off and back on again.",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 32),
 
-            _buildIconText(Icons.access_time, "10m", context),
-            SizedBox(height: 12),
-            _buildIconText(Icons.link, "https://github.com/S0kMo", context),
-            SizedBox(height: 12),
-            _buildIconText(Icons.public, "Asia/PhnomPenh", context),
+            _buildIconText(Icons.pin_drop, "Phnom_Penh/Cambodia", context),
 
             SizedBox(height: 34),
           ],
