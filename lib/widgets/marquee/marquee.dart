@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 
 class HorizontalMarquee extends StatefulWidget {
   final Widget child;
