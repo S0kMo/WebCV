@@ -97,13 +97,17 @@ class HomeInfo extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(46, 0, 0, 0),
                 child: Text(
                   "Welcome to",
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontSize: titleFontSize),
                   textAlign: textAlignment,
                 ),
               ),
             Text(
                 'My Portfolio',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontSize: titleFontSize),
                 textAlign: textAlignment,
               ),
             SizedBox(height: 20),

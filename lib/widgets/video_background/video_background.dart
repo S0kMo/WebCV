@@ -35,6 +35,7 @@ class _VideoBackgroundState extends State<VideoBackground> {
     try {
       await _controller.initialize();
       _controller.setLooping(true);
+      _controller.setVolume(0.0);
       _controller.play();
       setState(() {
         _isInitialized = true;

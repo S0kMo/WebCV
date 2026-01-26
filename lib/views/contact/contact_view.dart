@@ -32,10 +32,10 @@ class _ContactViewState extends State<ContactView> {
 
   void _handleFormSubmit() {
     // Handle form submission
-    print('Form submitted');
-    print('Name: ${_nameController.text}');
-    print('Email: ${_emailController.text}');
-    print('Message: ${_messageController.text}');
+    debugPrint('Form submitted');
+    debugPrint('Name: ${_nameController.text}');
+    debugPrint('Email: ${_emailController.text}');
+    debugPrint('Message: ${_messageController.text}');
 
     // Reset form after submission if needed
     // _nameController.clear();
@@ -45,6 +45,9 @@ class _ContactViewState extends State<ContactView> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the screen width is mobile size
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+    
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -56,89 +59,158 @@ class _ContactViewState extends State<ContactView> {
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.white70, width: 1),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
-                child: Text(
-                  'Contact Me',
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                child: Text(
-                  'Let\'s discuss your project',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(color: Colors.grey[400]),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Main content area with two columns
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left column: Name card only
-                  Expanded(flex: 1, child: const ContactNameCard(),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
+                  child: Text(
+                    'Contact Me',
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  child: Text(
+                    'Let\'s discuss your project',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: Colors.grey[400]),
+                  ),
+                ),
+                const SizedBox(height: 16),
 
-                  const SizedBox(width: 16),
+                // Mobile layout: Stack content vertically
+                if (isMobile)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Name card
+                      const ContactNameCard(),
+                      const SizedBox(height: 16),
 
-                  // Right column: Calendar or Form
-                  Expanded(
-                    flex: 2,
-                    child: _showForm
-                        ? ContactForm(
-                            nameController: _nameController,
-                            emailController: _emailController,
-                            messageController: _messageController,
-                            onSubmit: _handleFormSubmit,
-                            onBack: _switchToCalendar,
-                          )
-                        : Column(
-                            children: [
-                              ContactCalendar(
-                                selectedDate: DateTime.now(),
-                                onDateChanged: (newDate) {},
-                              ),
-                              Row(
+                      // Calendar or Form
+                      _showForm
+                          ? ContactForm(
+                              nameController: _nameController,
+                              emailController: _emailController,
+                              messageController: _messageController,
+                              onSubmit: _handleFormSubmit,
+                              onBack: _switchToCalendar,
+                            )
+                          : Column(
+                              children: [
+                                ContactCalendar(
+                                  selectedDate: DateTime.now(),
+                                  onDateChanged: (newDate) {},
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        16,
+                                        0,
+                                        0,
+                                        5,
+                                      ),
+                                      child: Text(
+                                        "Available time slots",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(color: Colors.grey[400]),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    0,
+                                    5,
+                                    0,
+                                    0,
+                                  ),
+                                  child: ContactTimeSlots(
+                                    selectedTime: '10:00 AM',
+                                    onTimeChanged: (newTime) {},
+                                    onTimeSelected: _switchToForm,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ],
+                  )
+                // Desktop layout: Two columns
+                else
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left column: Name card only
+                      Expanded(flex: 1, child: const ContactNameCard()),
+
+                      const SizedBox(width: 16),
+
+                      // Right column: Calendar or Form
+                      Expanded(
+                        flex: 2,
+                        child: _showForm
+                            ? ContactForm(
+                                nameController: _nameController,
+                                emailController: _emailController,
+                                messageController: _messageController,
+                                onSubmit: _handleFormSubmit,
+                                onBack: _switchToCalendar,
+                              )
+                            : Column(
                                 children: [
+                                  ContactCalendar(
+                                    selectedDate: DateTime.now(),
+                                    onDateChanged: (newDate) {},
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          16,
+                                          0,
+                                          0,
+                                          5,
+                                        ),
+                                        child: Text(
+                                          "Available time slots",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                color: Colors.grey[400],
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                      16,
-                                      0,
                                       0,
                                       5,
+                                      0,
+                                      0,
                                     ),
-                                    child: Text(
-                                      "Available time slots",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(color: Colors.grey[400]),
+                                    child: ContactTimeSlots(
+                                      selectedTime: '10:00 AM',
+                                      onTimeChanged: (newTime) {},
+                                      onTimeSelected: _switchToForm,
                                     ),
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                child: ContactTimeSlots(
-                                  selectedTime: '10:00 AM',
-                                  onTimeChanged: (newTime) {},
-                                  onTimeSelected: _switchToForm,
-                                ),
-                              ),
-                            ],
-                          ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

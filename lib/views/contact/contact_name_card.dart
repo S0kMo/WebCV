@@ -24,7 +24,7 @@ class ContactNameCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage('assets/profile_picture.png'),
+              backgroundImage: AssetImage('assets/profile2.png'),
             ),
             SizedBox(height: 16),
             Text(

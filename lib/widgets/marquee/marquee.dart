@@ -1,70 +1,83 @@
-import 'package:flutter/material.dart';
+//Later Implement a better marquee widget
 
-class HorizontalMarquee extends StatefulWidget {
-  final Widget child;
-  final double scrollAxisWidth;
-  final Duration animationDuration;
-  final Duration backDuration;
-  final Duration pauseDuration;
+// import 'package:flutter/material.dart';
 
-  const HorizontalMarquee({
-    super.key,
-    required this.child,
-    required this.scrollAxisWidth,
-    this.animationDuration = const Duration(milliseconds: 3000),
-    this.backDuration = const Duration(milliseconds: 3000),
-    this.pauseDuration = const Duration(milliseconds: 800),
-  });
+// class HorizontalMarquee extends StatefulWidget {
+//   final Widget child;
+//   final double scrollAxisWidth;
+//   final Duration animationDuration;
+//   final Duration backDuration;
+//   final Duration pauseDuration;
 
-  @override
-  _HorizontalMarqueeState createState() => _HorizontalMarqueeState();
-}
+//   const HorizontalMarquee({
+//     super.key,
+//     required this.child,
+//     required this.scrollAxisWidth,
+//     this.animationDuration = const Duration(milliseconds: 6000),
+//     this.backDuration = const Duration(milliseconds: 6000),
+//     this.pauseDuration = const Duration(milliseconds: 1200),
+//   });
 
-class _HorizontalMarqueeState extends State<HorizontalMarquee>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _animation;
+//   @override
+//   _HorizontalMarqueeState createState() => _HorizontalMarqueeState();
+// }
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: widget.animationDuration + widget.pauseDuration,
-      vsync: this,
-    );
+// class _HorizontalMarqueeState extends State<HorizontalMarquee>
+//     with SingleTickerProviderStateMixin {
+//   late AnimationController _controller;
+//   late Animation<Offset> _animation;
 
-    _animation = Tween<Offset>(
-      begin: const Offset(0.0, 0.0),
-      end: const Offset(-1.0, 0.0),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+//   @override
+//   void initState() {
+//     super.initState();
+    
+//     // Create a longer duration to account for the full content width
+//     final Duration totalDuration =
+//         widget.animationDuration + widget.pauseDuration;
+    
+//     _controller = AnimationController(
+//       duration: totalDuration,
+//       vsync: this,
+//     );
 
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        // Reset to beginning for endless loop
-        _controller.reset();
-        Future.delayed(widget.pauseDuration, () {
-          _controller.forward();
-        });
-      }
-    });
+//     // Create a tween that moves from 0 to -1 (full width) then back to 0 for seamless loop
+//     _animation = Tween<Offset>(
+//       begin: const Offset(0.0, 0.0),
+//       end: const Offset(-1.0, 0.0),
+//         ).animate(
+//           CurvedAnimation(
+//             parent: _controller,
+//             curve: Interval(0.0, 1.0, curve: Curves.linear),
+//           ),
+//         );
 
-    _controller.forward();
-  }
+//     _controller.addStatusListener((status) {
+//       if (status == AnimationStatus.completed) {
+//         // For seamless loop, immediately restart without reset
+//         // This creates a continuous circular motion
+//         _controller.forward(from: 0.0);
+//       }
+//     });
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+//     _controller.forward();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.scrollAxisWidth,
-      height: 40, // Fixed height for skill boxes
-      child: ClipRect(
-        child: SlideTransition(position: _animation, child: widget.child),
-      ),
-    );
-  }
-}
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final bool isMobile = MediaQuery.of(context).size.width < 768;
+    
+//     return SizedBox(
+//       width: widget.scrollAxisWidth,
+//       height: isMobile ? 45 : 50, // Smaller height for mobile
+//       child: ClipRect(
+//         child: SlideTransition(position: _animation, child: widget.child),
+//       ),
+//     );
+//   }
+// }

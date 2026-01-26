@@ -11,7 +11,7 @@ class AboutCard extends StatelessWidget {
       alignment: Alignment.topLeft,
       color: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(16, 16, 8, 0),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.5),
           borderRadius: BorderRadius.circular(12),
@@ -21,27 +21,29 @@ class AboutCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage('assets/profile_picture.png'),
+            Row(
+              children: [
+                SizedBox(width: 16),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/profile2x.png'),
+                ),
+                _buildAvatarTextSpacing(context),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Responsive name display for mobile and desktop
+                    _buildNameText(context),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(height: 16),
-            Text(
-              'Sum Somony',
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: _buildTerminalText(context),
             ),
-            SizedBox(height: 8),
-            Text(
-              'sum_somony@portfolio:~\$ whoami',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: Colors.yellow),
-            ),
-            SizedBox(height: 16),
             // Description with highlighted link
             RichText(
               textAlign: TextAlign.left,
@@ -52,7 +54,7 @@ class AboutCard extends StatelessWidget {
                 children: [
                   TextSpan(
                     text:
-                        "Currently a Telecom & Network Engineering student—which is a fancy way of saying I spend 40 hours a week staring at green lights on a switch and wondering why my ping is so high.",
+                        "Currently a Telecommunications & Network Engineering student—which is a fancy way of saying I spend 40 hours a week staring at green lights on a switch and wondering why my ping is so high.",
                   ),
                   TextSpan(text: "I’m an easy-going guy who lives for"),
                   TextSpan(
@@ -76,15 +78,98 @@ class AboutCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 14),
+            Text(
+              'Languages',
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                color: Colors.white70,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 12),
+            _buildIconText(Icons.language, "Khmer    / Mother Tongue", context),
+            SizedBox(height: 12),
+            _buildIconText(Icons.language, "English / Good", context),
+            SizedBox(height: 12),
+            _buildIconText(Icons.language, "French / Basic", context),
 
-            _buildIconText(Icons.pin_drop, "Phnom_Penh/Cambodia", context),
-
-            SizedBox(height: 34),
+            SizedBox(height: 38),
           ],
         ),
       ),
     );
+  }
+
+  // Responsive terminal text method
+  Widget _buildTerminalText(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+
+    return Text(
+      'sum_somony@portfolio:~\$ whoami',
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+        color: Colors.yellow,
+        fontSize: isMobile
+            ? 14
+            : 16, // Smaller font for mobile to fit single line
+      ),
+    );
+  }
+
+  // Responsive spacing between avatar and text
+  Widget _buildAvatarTextSpacing(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+
+    if (isMobile) {
+      // Mobile layout: Smaller spacing
+      return SizedBox(width: 24);
+    } else {
+      // Desktop layout: Original spacing
+      return SizedBox(width: 56);
+    }
+  }
+
+  // Responsive name display method
+  Widget _buildNameText(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+
+    if (isMobile) {
+      // Mobile layout
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'Sum Somony',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              fontSize: 28, // Smaller font for mobile
+            ),
+          ),
+        ],
+      );
+    } else {
+      // Desktop layout
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sum ',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Somony',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
 
@@ -92,7 +177,7 @@ Widget _buildIconText(IconData icon, String text, BuildContext context) {
   return Row(
     children: [
       Icon(icon, color: Colors.grey, size: 22),
-      SizedBox(width: 12),
+      SizedBox(width: 16),
       Text(
         text,
         style: Theme.of(context).textTheme.displayMedium?.copyWith(

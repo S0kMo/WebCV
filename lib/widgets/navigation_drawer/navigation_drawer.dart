@@ -30,13 +30,31 @@ class NavigationDrawer extends StatelessWidget {
           DrawerItem(
             icon: Icons.work,
             navigationPath: PortfolioRoute,
-            title: 'Portfolio',
+            title: 'Projects',
           ),
           DrawerItem(
             icon: Icons.contact_mail,
             navigationPath: ContactRoute,
             title: 'Contact',
           ),
+          const Spacer(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.copyright, size: 12, color: Colors.grey[700]),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Made by S0kMo',
+                    style: TextStyle(color: Colors.grey[700], fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

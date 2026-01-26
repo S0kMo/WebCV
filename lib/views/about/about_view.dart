@@ -8,6 +8,9 @@ class AboutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the screen width is mobile size
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+    
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -27,36 +30,57 @@ class AboutView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
                   child: Text(
-                    'About Me ?',
+                    'About Me ',
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Left column: About card (flex1)
-                    Expanded(flex: 1, child: AboutCard()),
+                
+                // Mobile layout: Stack cards vertically
+                if (isMobile)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // About card
+                      AboutCard(),
+                      const SizedBox(height: 16),
 
-                    const SizedBox(width: 16),
+                      // Education card
+                      const EducationCard(),
+                      const SizedBox(height: 16),
 
-                    // Right column: Education card (flex2) and Technical Skills (flex3)
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Education card (flex2)
-                          const EducationCard(),
-                          const SizedBox(height: 16),
+                      // Technical skills card
+                      const TechnicalSkillsCard(),
+                    ],
+                  )
+                // Desktop layout: Two columns
+                else
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left column: About card (flex1)
+                      Expanded(flex: 1, child: AboutCard()),
 
-                          // Technical skills card (flex3)
-                          const TechnicalSkillsCard(),
-                        ],
+                      const SizedBox(width: 16),
+
+                      // Right column: Education card (flex2) and Technical Skills (flex3)
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Education card (flex2)
+                            const EducationCard(),
+                            const SizedBox(height: 16),
+
+                            // Technical skills card (flex3)
+                            const TechnicalSkillsCard(),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),

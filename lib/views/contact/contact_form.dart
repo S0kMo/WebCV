@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-// ============================================================================
 // EDITABLE: Contact Form Widget - Modify styling and fields here
-// ============================================================================
+
 class ContactForm extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -73,57 +72,17 @@ class _ContactFormState extends State<ContactForm> {
           const SizedBox(height: 14),
 
           // Submit Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: widget.onBack,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[700],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    'Back',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              SizedBox(
-                width: 240,
-                child: ElevatedButton(
-                  onPressed: widget.onSubmit,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 4,
-                    ),
-                    child: Text(
-                      'Schedule Meeting',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyLarge?.copyWith(color: Colors.black87),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+            child: _buildSubmitButtons(context),
           ),
         ],
       ),
     );
   }
 
-  // ============================================================================
   // EDITABLE: Text Field Widget - Modify styling here
-  // ============================================================================
+
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -134,10 +93,7 @@ class _ContactFormState extends State<ContactForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
+        Text(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
@@ -145,13 +101,89 @@ class _ContactFormState extends State<ContactForm> {
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hint,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             contentPadding: const EdgeInsets.all(8),
           ),
         ),
       ],
     );
+  }
+
+  // Responsive Submit Buttons Widget
+  Widget _buildSubmitButtons(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 768;
+
+    if (isMobile) {
+      // Mobile layout: Stack buttons vertically
+      return Column(
+        children: [
+          // Schedule Meeting Button (Full width)
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: widget.onSubmit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: Text(
+                'Schedule Meeting',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(color: Colors.black87),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Back Button (Full width)
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: widget.onBack,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[700],
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: Text('Back', style: Theme.of(context).textTheme.bodyLarge),
+            ),
+          ),
+        ],
+      );
+    } else {
+      // Desktop layout: Buttons side by side
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            onPressed: widget.onBack,
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[700]),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Text('Back', style: Theme.of(context).textTheme.bodyLarge),
+            ),
+          ),
+          const SizedBox(width: 16),
+          SizedBox(
+            width: 240,
+            child: ElevatedButton(
+              onPressed: widget.onSubmit,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: Text(
+                  'Schedule Meeting',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(color: Colors.black87),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
