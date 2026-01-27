@@ -233,14 +233,14 @@ Replace assets in the `assets/` directory:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the idk -.
 
 ## 📞 Contact
 
 For questions and support, please reach out:
 
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **Portfolio**: [your-website.com](https://your-website.com)
+- **Email**: [your-email@example.com](mailto:sokmuny2018@gmail.com)
+- **Portfolio**: [your-website.com](https://s0kmo.github.io/WebCV/)
 
 ---
 
