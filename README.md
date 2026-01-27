@@ -166,7 +166,7 @@ webcv/
 
 ## 🎨 Screenshots
 
-> _Add your screenshots here when ready_
+> _screenshots_
 
 ## 📖 Usage
 
@@ -239,9 +239,9 @@ This project is licensed under the idk -.
 
 For questions and support, please reach out:
 
-- **Email**: [your-email@example.com](mailto:sokmuny2018@gmail.com)
-- **Portfolio**: [your-website.com](https://s0kmo.github.io/WebCV/)
+- **Email**: [sokmuny2018@gmail.com](mailto:sokmuny2018@gmail.com)
+- **Portfolio**: [just-click.com](https://s0kmo.github.io/WebCV/)
 
 ---
 
-**Made with ❤️ using Flutter**
+**Made with Stress using Flutter**
