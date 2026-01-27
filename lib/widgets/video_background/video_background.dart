@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'dart:ui' as ui;
 
 class VideoBackground extends StatefulWidget {
   final String videoPath;
@@ -63,19 +62,31 @@ class _VideoBackgroundState extends State<VideoBackground> {
           // Video background with blur effect
           if (_isInitialized)
             Positioned.fill(
-              child: BackdropFilter(
-                filter: ui.ImageFilter.blur(
-                  sigmaX: widget.blurRadius,
-                  sigmaY: widget.blurRadius,
-                ),
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: SizedBox(
-                    width: _controller.value.size.width,
-                    height: _controller.value.size.height,
-                    child: VideoPlayer(_controller),
+              child: Stack(
+                children: [
+                  // Video player
+                  FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: _controller.value.size.width,
+                      height: _controller.value.size.height,
+                      child: VideoPlayer(_controller),
+                    ),
                   ),
-                ),
+                  // Blur overlay using semi-transparent color
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withOpacity(widget.blurRadius * 0.5),
+                          Colors.black.withOpacity(widget.blurRadius * 0.8),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           else
