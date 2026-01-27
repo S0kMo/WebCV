@@ -52,55 +52,61 @@ class _VideoBackgroundState extends State<VideoBackground> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      width: double.infinity,
-      height: double.infinity,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          // Video background with blur effect
-          if (_isInitialized)
-            Positioned.fill(
-              child: Stack(
-                children: [
-                  // Video player
-                  FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: _controller.value.size.width,
-                      height: _controller.value.size.height,
-                      child: VideoPlayer(_controller),
-                    ),
-                  ),
-                  // Blur overlay using semi-transparent color
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(widget.blurRadius * 0.5),
-                          Colors.black.withOpacity(widget.blurRadius * 0.8),
-                        ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          color: Colors.black,
+          width: constraints.maxWidth,
+          height: constraints.maxHeight,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Video background with blur effect
+              if (_isInitialized)
+                Positioned.fill(
+                  child: Stack(
+                    children: [
+                      // Video player - ensure it covers the entire area
+                      Positioned.fill(
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: SizedBox(
+                            width: _controller.value.size.width,
+                            height: _controller.value.size.height,
+                            child: VideoPlayer(_controller),
+                          ),
+                        ),
                       ),
-                    ),
+                      // Blur overlay using semi-transparent color
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(widget.blurRadius * 0.5),
+                              Colors.black.withOpacity(widget.blurRadius * 0.8),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                )
+              else
+                Positioned.fill(child: Container(color: Colors.black)),
+              // Overlay for opacity control
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black87.withOpacity(0.7 - widget.opacity),
+                ),
               ),
-            )
-          else
-            Positioned.fill(child: Container(color: Colors.black)),
-          // Overlay for opacity control
-          Positioned.fill(
-            child: Container(
-              color: Colors.black87.withOpacity(0.7 - widget.opacity),
-            ),
+              // Content on top
+              Positioned.fill(child: widget.child),
+            ],
           ),
-          // Content on top
-          Positioned.fill(child: widget.child),
-        ],
-      ),
+        );
+      },
     );
   }
 }
